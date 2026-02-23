@@ -20,19 +20,18 @@ export type HeroWaveProps = {
   onPromptSubmit?: (value: string) => void;
 };
 
-export function HeroWave({ className, style, extendLeftPx = 320, title = "Word zichtbaar op LinkedIn zonder elke dag na te denken.", subtitle = "AI-postgenerator voor bereik. Gratis proefperiode, daarna €29/maand onbeperkt.", placeholder = "Beschrijf je post-idee...", buttonText = "Genereer", onPromptSubmit }: HeroWaveProps) {
+export function HeroWave({ className, style, extendLeftPx = 320, title = "De AI-tool voor consistente zichtbaarheid op LinkedIn.", subtitle = "Gebaseerd op patronen uit duizenden succesvolle LinkedIn-posts.", placeholder = "Waar wil je zichtbaar mee worden?", buttonText = "Genereer", onPromptSubmit }: HeroWaveProps) {
   const [prompt, setPrompt] = useState("");
   const containerRef = useRef<HTMLDivElement | null>(null);
   const waveRef = useRef<HTMLDivElement | null>(null);
-  const basePlaceholder = "Maak me een";
+  const basePlaceholder = "Help me zichtbaar worden met ";
   const suggestionsRef = useRef<string[]>([
-    " thought leadership post",
-    " virale carousel",
-    " verhaal met een hook",
-    " persoonlijk merk-post",
-    " post die engagement creëert",
-    " prikkelende stelling",
-    " lijst-post",
+    " mijn expertise",
+    " dit inzicht",
+    " deze les",
+    " mijn verhaal",
+    " mijn ervaring",
+    " dit perspectief",
   ]);
   const [animatedPlaceholder, setAnimatedPlaceholder] = useState<string>(basePlaceholder);
   const typingStateRef = useRef({
@@ -809,8 +808,20 @@ export function HeroWave({ className, style, extendLeftPx = 320, title = "Word z
           className="max-w-3xl w-full text-center"
           style={{ pointerEvents: "auto" }}
         >
-          <h1 className="text-white text-3xl sm:text-5xl font-semibold tracking-tight drop-shadow-[0_1px_8px_rgba(31,61,188,0.25)]">
-            {title}
+          <h1 className="text-white text-3xl sm:text-5xl font-semibold tracking-tight drop-shadow-[0_1px_8px_rgba(31,61,188,0.25)] whitespace-pre-line">
+            {title.includes("geen") ? (
+              <>
+                {title.split(/(geen)/).map((part, i) =>
+                  part === "geen" ? (
+                    <span key={i} className="italic">geen</span>
+                  ) : (
+                    part
+                  )
+                )}
+              </>
+            ) : (
+              title
+            )}
           </h1>
           <p className="text-gray-300/90 mt-3 sm:mt-4 text-sm sm:text-base">
             {subtitle}
